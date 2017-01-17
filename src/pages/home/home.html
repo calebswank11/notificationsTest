@@ -1,0 +1,65 @@
+<div>
+  <table class="table table-striped" [mfData]="notifications" #mf="mfDataTable" [mfRowsOnPage]="5">
+    <thead>
+    <tr>
+      <th>
+        <mfDefaultSorter by="dateCreated">
+          Date Created
+        </mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="message">
+          Message
+        </mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="recipients">
+          Recipients
+        </mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="startDate">
+          Start Date
+        </mfDefaultSorter>
+      </th>
+      <th>
+        <mfDefaultSorter by="expirationDate">
+          End Date
+        </mfDefaultSorter>
+      </th>
+      <th>
+          Actions
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let notification of mf.data">
+        <td>{{notification.dateCreated}}</td>
+        <td>{{notification.message}}</td>
+        <td>
+          <span *ngFor="let recipient of notification.recipients">
+            {{recipient.description}}
+            {{recipient.recipient}}
+          </span>
+          <span *ngIf="!notification.recipients.length">
+            All
+          </span>
+        </td>
+        <td>{{notification.startDate}}</td>
+        <td>{{notification.expirationDate}}</td>
+        <td>
+          <span class="editItem">Edit</span>
+          <span class="copyItem">Copy</span>
+          <span class="deleteItem">Delete</span>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4">
+          <mfBootstrapPaginator [rowsOnPageSet]="[5, 10, 20]"></mfBootstrapPaginator>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
